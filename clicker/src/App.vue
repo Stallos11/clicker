@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
+import { store } from './store';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -13,6 +14,9 @@ export default defineComponent({
   components: {
     IonApp,
     IonRouterOutlet
+  },
+  mounted() {
+    console.log("jai le store", store)
   }
 });
 </script>
