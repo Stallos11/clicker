@@ -5,7 +5,7 @@
         <ion-title>General header</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-router-outlet style="padding-top: 56px;" />
+    <ion-router-outlet />
   </ion-app>
 </template>
 

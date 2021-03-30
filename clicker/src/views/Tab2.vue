@@ -16,6 +16,3 @@ export default  {
   components: { IonContent, IonPage }
 }
 </script>
-
-<style lang="scss">
-</style>
