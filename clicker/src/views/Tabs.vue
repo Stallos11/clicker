@@ -1,10 +1,10 @@
 <template>
   <ion-page>
     <ion-tabs>
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar>
         <ion-tab-button tab="tab1" href="/tabs/tab1">
           <ion-icon :icon="triangle" />
-          <ion-label>Settings</ion-label>
+          <ion-label>Ranking</ion-label>
         </ion-tab-button>
           
         <ion-tab-button tab="tab2" href="/tabs/tab2">
@@ -37,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.tab-content {
+  padding-top: 56px;
+}
+</style>

@@ -1,6 +1,11 @@
 <template>
   <ion-app>
-    <ion-router-outlet />
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>General header</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-router-outlet style="padding-top: 56px;" />
   </ion-app>
 </template>
 
