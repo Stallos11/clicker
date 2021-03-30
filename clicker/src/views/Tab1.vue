@@ -2,9 +2,8 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="tab-content">
-        <p>
-          1111111111111111111111111
-        </p>
+          <p>Rank List</p>
+          <rank-list :users="users" pageTitle="lalaalal"></rank-list>
       </div>
     </ion-content>
   </ion-page>
@@ -12,9 +11,16 @@
 
 <script lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
+import RankList from '../components/RankList.vue';
 
 export default  {
   name: 'Tab1',
-  components: { IonContent, IonPage }
+  data(){
+    return {
+      users: {}
+    }
+  },
+  components: { IonContent, IonPage, RankList},
+
 }
 </script>

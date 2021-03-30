@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="tab-content">
-        <p>333333333333333</p>
+
       </div>
     </ion-content>
   </ion-page>

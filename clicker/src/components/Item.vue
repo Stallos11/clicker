@@ -28,7 +28,7 @@ export default {
     obtentionLevel: Number,
     EPS: Number
   },
-  methode: {
+  methods: {
     buy(){
       console.log("buy");
     },
@@ -39,5 +39,3 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
