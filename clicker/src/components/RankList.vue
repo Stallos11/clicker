@@ -50,11 +50,12 @@ export default {
       color: var(--ion-text-color);
     }
   }
-  .namerank{
-    background-color: var(--ion-color-primary-contrast);
-    div{
-      color: var(--ion-color-light);
-      
-    }
+}
+.namerank{
+  background-color: var(--ion-color-primary-contrast);
+  div{
+    color: var(--ion-color-light);
+    
   }
+}
 </style>
