@@ -47,13 +47,15 @@ export default {
             }
         })
         .then(response => { 
-            const token = response.data.access_token;
-            store.state.token = token;
             const data = response.data;
-            console.log("response", data.user);
+            const token = data.access_token;
+            store.state.token = token;
+            // console.log("response", data.user);
 
             if (data.user) {
                 store.state.isLogged = true;
+                store.state.userID = data.user.id;
+                store.state.actualMoney = data.user.actual_money;
                 store.state.buildings = data.user.buildings;
                 this.$router.push('/tabs/');
             }

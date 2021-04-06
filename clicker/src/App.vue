@@ -2,7 +2,7 @@
   <ion-app>
     <ion-header>
       <ion-toolbar class="my-toolbar txt-white">
-        <ion-title>General header</ion-title>
+        <ion-title>{{ title }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-router-outlet />
@@ -17,6 +17,11 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'App',
+  data() {
+    return {
+      title: "Header"
+    }
+  },
   components: {
     IonApp,
     IonRouterOutlet,
@@ -25,7 +30,7 @@ export default defineComponent({
     IonHeader
   },
   mounted() {
-    console.log("token=> " + store.state.token)
+    console.log("token=> " + store.state.token);
   }
 });
 </script>

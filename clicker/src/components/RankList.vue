@@ -9,10 +9,10 @@
       <div class="d-flex gradient light-shadow-2 rounded-2 my-4">
         <p class="ml-3">
           <span class="font-w600 txt-white">Mon classement</span> <br>
-          <span class="txt-grey txt-light-1">1 125 488 234$</span>
+          <span class="txt-grey txt-light-1">{{ actualMoney }}$</span>
         </p>
         <div class="txt-center txt-white font-s3 font-w600 bd-b-solid bd-3 bd-white ml-auto my-auto mr-3 pb-1">
-          27em
+          N ° {{ currentUserRanking + 1 }}
         </div>
       </div>
 
@@ -43,28 +43,53 @@ export default {
   data () {
     return {
       userList: [],
+      currentUserRanking: null,
+      config: '',
+      actualMoney: store.state.actualMoney,
       loading: true
     }
   },
   mounted(){
-    const config = {
+    this.config = {
       headers: {
         'Authorization': 'Bearer ' + store.state.token
       }
-    }
-    axios.get(
-      'https://clicker.vincent-dimarco.fr/api/auth/users',
-        config
-    )
-    .then(response => {
-      console.log(response);
-      this.loading = false;
-      this.userList = response.data;
-    })
-    .catch(error => {
-        console.log("error", error.response)
-    })
+    };
+    this.getRankings();
+    this.getUserRanking();
   },
+  methods: {
+    getRankings() {
+      this.loading = true;
+      axios.get(
+        'https://clicker.vincent-dimarco.fr/api/auth/users',
+        this.config
+      )
+      .then(response => {
+        console.log(response);
+        this.userList = response.data;
+        this.loading = false;
+      })
+      .catch(error => {
+          console.log("error", error.response);
+      });
+    },
+    getUserRanking() {
+      this.loading = true;
+      axios.get(
+        'https://clicker.vincent-dimarco.fr/api/auth/user/rank?id=' + store.state.userID,
+        this.config
+      )
+      .then(response => {
+        console.log(response);
+        this.currentUserRanking = response.data;
+        this.loading = false;
+      })
+      .catch(error => {
+        console.log("error", error.response);
+      });
+    }
+  }
 }
 </script>
 
