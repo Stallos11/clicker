@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="tab-content">
-        <p class="txt-center">Rank List</p>
+        <p class="font-s6 txt-airforce txt-dark-4 font-w600 bd-orange bd-b-solid bd-l-solid bd-dark-1 ml-5 pb-2 pl-3 mr-5">Rank List</p>
         <rank-list :users="users" pageTitle="lalaalal"></rank-list>
       </div>
     </ion-content>
@@ -22,7 +22,5 @@ export default  {
     }
   },
   components: { IonContent, IonPage, RankList},
-  
-
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="tab-content">
+      <div class="tab-content h100">
         <login></login>
       </div>
     </ion-content>
@@ -12,7 +12,6 @@
 import { IonPage, IonContent } from '@ionic/vue';
 import Login from '../components/Login.vue';
 
-
 export default  {
   name: 'FormLogin',
   data(){
@@ -21,6 +20,5 @@ export default  {
     }
   },
   components: { IonContent, IonPage, Login},
-
 }
 </script>

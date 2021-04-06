@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="card white rounded-2">
+    <div class="container d-flex h100 pb-5">
+        <div class="card white shadow-1 rounded-2 my-auto w100">
             <div class="card-header">Login</div>
             <div class="card-content">
                 <form @submit.prevent="formLogin" method="POST" class="form-material">
@@ -12,11 +12,8 @@
                         <input type="password" id="pwd" class="form-control rounded-1" v-model="password"/>
                         <label for="pwd">Password</label>
                     </div>
-                    <button type="submit" value="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" value="submit" class="btn orange dark-1 txt-white rounded-1 mt-4 light-shadow-2">Submit</button>
                 </form>
-                <div>
-                    <router-link to="/tabs/tab2" class="btn">Test</router-link>
-                </div>
             </div>
         </div>
     </div>
@@ -35,12 +32,12 @@ export default {
         };
     },
     mounted() {
-        console.log('Component mounted.')
+        console.log('Component mounted.');
         Axentix.updateInputs();
     },
     methods: {
         formLogin() {
-            axios.post('http://127.0.0.1:8000/api/auth/login', {
+            axios.post('https://clicker.vincent-dimarco.fr/api/auth/login', {
                 email: this.email,
                 password: this.password
             },
@@ -52,14 +49,17 @@ export default {
         .then(response => { 
             const token = response.data.access_token;
             store.state.token = token;
-            store.state.buildings = JSON.parse(response.data.user.buildings);
+            const data = response.data;
+            console.log("response", data.user);
 
-            
-            console.log("B1 " , store.state.buildings["b2"]);
-
+            if (data.user) {
+                store.state.isLogged = true;
+                store.state.buildings = data.user.buildings;
+                this.$router.push('/tabs/');
+            }
         })
         .catch(error => {
-            console.log(error.response)
+            console.log("error", error.response)
         })}
     }
 }
