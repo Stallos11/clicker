@@ -25,7 +25,7 @@ export default defineComponent({
     IonHeader
   },
   mounted() {
-    console.log("jai le store", store)
+    console.log("token=> " + store.state.token)
   }
 });
 </script>

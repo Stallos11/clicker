@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="tab-content">
-        <button v-on:click="test()">Test</button>
+        <register></register>
       </div>
     </ion-content>
   </ion-page>
@@ -10,15 +10,17 @@
 
 <script lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
-import { store } from '../store';
+import Register from '../components/Register.vue';
+
 
 export default  {
-  name: 'Tab2',
-  components: { IonContent, IonPage },
-  methods:{
-    test(){
-      console.log(store.state.buildings);
+  name: 'FormRegister',
+  data(){
+    return {
+      
     }
-  }
+  },
+  components: { IonContent, IonPage, Register},
+
 }
 </script>
