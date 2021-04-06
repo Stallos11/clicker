@@ -28,7 +28,6 @@ export default {
   name: 'ranklist',
   data () {
     return {
-
       userList: [],
       loading: true
     }
@@ -42,20 +41,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .rank{
-    background-color: var(--ion-color-primary);
-    div{
-      color: var(--ion-text-color);
-    }
-  }
-}
-.namerank{
-  background-color: var(--ion-color-primary-contrast);
-  div{
-    color: var(--ion-color-light);
-    
-  }
-}
-</style>

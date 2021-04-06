@@ -31,5 +31,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "~axentix/dist/css/axentix.min.css";
+  @import "../node_modules/axentix/dist/css/axentix.min.css";
 </style>
