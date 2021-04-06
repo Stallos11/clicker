@@ -1,4 +1,4 @@
-import { createStore, useStore as baseUseStore, Store } from 'vuex'
+import { createStore } from 'vuex'
 
 export interface State {
   actualMoney: number;
