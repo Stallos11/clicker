@@ -2,7 +2,7 @@
   <ion-app>
     <ion-header>
       <ion-toolbar class="my-toolbar txt-white">
-        <ion-title>{{ title }}</ion-title>
+        <ion-title>{{ pageName }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-router-outlet />
@@ -10,49 +10,53 @@
 </template>
 
 <script lang="ts">
-import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader} from '@ionic/vue';
-import { store } from './store';
-import { defineComponent } from 'vue';
+import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader } from "@ionic/vue";
+import { store } from "./store";
+import { defineComponent } from "vue";
+
 //import Axentix from 'axentix';
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   data() {
     return {
-      title: "Header"
-    }
+      title: "",
+    };
+  },
+  computed: {
+    pageName: () => store.state.pageName,
   },
   components: {
     IonApp,
     IonRouterOutlet,
     IonTitle,
     IonToolbar,
-    IonHeader
+    IonHeader,
   },
   mounted() {
     console.log("token=> " + store.state.token);
-  }
+  },
 });
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-  * {
-    font-family: 'Quicksand', sans-serif;
-    --color-selected: #FE7B00;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+* {
+  font-family: "Quicksand", sans-serif;
+  --color-selected: #fe7b00;
+}
 
-  ion-content{
-    --ion-background-color: #f7f7f7;
-  }
+ion-content {
+  --ion-background-color: #f7f7f7;
+}
 
-  @import "../node_modules/axentix/dist/css/axentix.min.css";
- 
- .form-material .form-field:not(.form-default) {
-    --form-material-color: #FE7B00 !important;
-  }
+@import "../node_modules/axentix/dist/css/axentix.min.css";
 
- .my-toolbar{
-    --background: #FE7B00;
-  }
+.form-material .form-field:not(.form-default) {
+  --form-material-color: #fe7b00 !important;
+}
+
+.my-toolbar {
+  --background: #fe7b00;
+}
 </style>
