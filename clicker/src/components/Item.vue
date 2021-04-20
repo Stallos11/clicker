@@ -7,7 +7,6 @@
       <li>buildsCount : {{ buildsCount }}</li>
       <li>basePrice : {{ basePrice }}</li>
       <li>priceMultiplicator : {{ priceMultiplicator }}</li>
-      <li>obtentionLevel : {{ obtentionLevel }}</li>
       <li>actualPrice : {{ actualPrice }}</li>
       <li>EPS : {{ EPS }}</li>
     </ul> -->
@@ -32,13 +31,13 @@
 </template>
 
 <script lang="ts">
+import { store } from "../store";
 
 export default {
   name: 'Item',
   props: {
     nameProp: String,
     earningProp: Number,
-    buildsCountProp: Number,
     basePriceProp: Number,
     obtentionLevelProp: Number
   },
@@ -46,7 +45,6 @@ export default {
     return  {
       name: this.nameProp,
       earning: this.earningProp,
-      buildsCount: this.buildsCountProp,
       basePrice: this.basePriceProp,
       obtentionLevel: this.obtentionLevelProp,
       pricePercentUpper: 15,
@@ -59,18 +57,18 @@ export default {
     EPS() {
       return this.earning * this.buildsCount;
     },
+    buildsCount() {
+      return store.state.buildings[this.name];
+    }
   },
   methods: {
     buy(){
       console.log("buy");
-      this.buildsCount++;
+      store.state.buildings[this.name]++;
     },
-    setEPS(){
+    setEPS() {
       console.log("setting the global EPS");
     }
-  },
-  mounted() {
-    console.log(this.basePrice,  this.buildsCount, this.priceMultiplicator,  this.basePrice * this.buildsCount * this.priceMultiplicator)
   }
 }
 </script>

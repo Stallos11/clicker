@@ -38,58 +38,30 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import { store } from "../store";
 
 export default {
   name: "ranklist",
-  data() {
-    return {
-      userList: [],
-      username: "",
-      currentUserRanking: null,
-      config: "",
-      actualMoney: store.state.actualMoney,
-      loading: true,
-    };
+  computed: {
+    currentUserRanking() {
+      return store.state.currentUserRanking;
+    },
+    userList() {
+      return store.state.userList;
+    },
+    loading() {
+      return store.state.loading;
+    },
+    username() {
+      return store.state.username;
+    },
+    actualMoney() {
+      return store.state.actualMoney;
+    }
   },
   mounted() {
-    this.config = {
-      headers: {
-        Authorization: "Bearer " + store.state.token,
-      },
-    };
-    this.getRankings();
-    this.getUserRanking();
-  },
-  methods: {
-    getRankings() {
-      this.loading = true;
-      axios
-        .get("https://clicker.vincent-dimarco.fr/api/auth/users", this.config)
-        .then((response) => {
-          console.log(response);
-          this.userList = response.data;
-          this.username = store.state.username;
-          this.loading = false;
-        })
-        .catch((error) => {
-          console.log("error", error.response);
-        });
-    },
-    getUserRanking() {
-      this.loading = true;
-      axios
-        .get("https://clicker.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, this.config)
-        .then((response) => {
-          console.log(response);
-          this.currentUserRanking = response.data;
-          this.loading = false;
-        })
-        .catch((error) => {
-          console.log("error", error.response);
-        });
-    },
+    store.dispatch('getRankings');
+    store.dispatch('getUserRanking');
   },
 };
 </script>
