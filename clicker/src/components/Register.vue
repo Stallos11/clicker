@@ -44,7 +44,7 @@ import axios from 'axios';
         },
         methods: {
             formSubmit() {
-                axios.post('http://127.0.0.1:8000/api/auth/register', {
+                axios.post('https://clicker.vincent-dimarco.fr/api/auth/register', {
                     name: this.name,
                     email: this.email,
                     password: this.password,
