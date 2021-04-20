@@ -61,7 +61,8 @@ export default {
             store.state.userID = data.user.id;
             store.state.actualMoney = data.user.actual_money;
             store.state.username = data.user.name;
-            store.state.buildings = data.user.buildings;
+            store.state.buildings = JSON.parse(data.user.buildings);
+
             this.$router.push("/tabs/");
           }
         })

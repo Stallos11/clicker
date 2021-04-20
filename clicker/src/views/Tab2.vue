@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
-import { store } from '../store';
+import { IonPage, IonContent } from "@ionic/vue";
+import { store } from "../store";
 
-export default  {
-  name: 'Tab2',
+export default {
+  name: "Tab2",
   components: { IonContent, IonPage },
-  methods:{
-    test(){
-      console.log(store.state.buildings);
-    }
-  }
-}
+  methods: {
+    test() {
+      console.log(store.state.buildings["b2"]);
+    },
+  },
+};
 </script>
