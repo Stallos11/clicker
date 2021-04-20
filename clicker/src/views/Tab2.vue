@@ -21,6 +21,7 @@ export default {
     },
   },
   mounted() {
+    store.dispatch('setEPS');
     store.state.pageName = "Game";
   }
 };

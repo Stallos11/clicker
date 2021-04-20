@@ -21,7 +21,6 @@
 import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader } from "@ionic/vue";
 import { store } from "./store";
 import { defineComponent } from "vue";
-import axios from "axios";
 
 //import Axentix from 'axentix';
 
@@ -43,33 +42,22 @@ export default defineComponent({
     IonToolbar,
     IonHeader,
   },
-  methods: {
-    updateUserData() {
-      axios.put('https://clicker.vincent-dimarco.fr/api/update', {
-        id: store.state.userID,
-        actualMoney: 12,
-      },
-      {
-        headers: { 
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => { 
-          console.log(response)
-      })
-      .catch(error => {
-          console.log(error.response)
-      });
-    }
-  },
   mounted() {
     console.log("token=> " + store.state.token);
     setInterval(() => {
       store.state.actualMoney += store.state.actualEPS;
     }, 1000)
 
-    window.addEventListener('unload', this.updateUserData());
+    window.addEventListener('beforeunload', function() {
+      localStorage.setItem('id', store.state.userID.toString());
+      localStorage.setItem('actualMoney', store.state.actualMoney.toString());
+      localStorage.setItem('token', store.state.token);
+      localStorage.setItem('buildings', JSON.stringify(store.state.buildings));
+    });
   },
+  beforeUnmount() {
+    this.updateUserData();
+  }
 });
 </script>
 
