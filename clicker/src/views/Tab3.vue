@@ -56,12 +56,6 @@ export default  {
       return Object.values(store.state.buildings);
     }
   },
-  mounted() {
-    console.table(store.state.buildings);
-    setInterval(() => {
-      console.table(store.state.buildings);
-    }, 2000);
-  },
   components: { IonContent, IonPage, Item }
 }
 </script>

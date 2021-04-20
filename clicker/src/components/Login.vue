@@ -54,7 +54,6 @@ export default {
           const data = response.data;
           const token = data.access_token;
           store.state.token = token;
-          // console.log("response", data.user);
 
           if (data.user) {
             store.state.isLogged = true;

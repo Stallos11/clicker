@@ -2,7 +2,15 @@
   <ion-app>
     <ion-header>
       <ion-toolbar class="my-toolbar txt-white">
-        <ion-title>{{ pageName }}</ion-title>
+        <ion-title>
+          {{ pageName }}
+        </ion-title>
+         <ion-buttons slot="end">
+            <ion-button >
+                <ion-icon name="star"></ion-icon>
+                <span v-if="actualMoney" class="font-s2 font-w600 white rounded-2 light-shadow-1 p-2">{{ actualMoney }}$</span>
+            </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-router-outlet />
@@ -25,6 +33,7 @@ export default defineComponent({
   },
   computed: {
     pageName: () => store.state.pageName,
+    actualMoney: () => store.state.actualMoney,
   },
   components: {
     IonApp,
@@ -35,6 +44,9 @@ export default defineComponent({
   },
   mounted() {
     console.log("token=> " + store.state.token);
+    setInterval(() => {
+      store.state.actualMoney += store.state.actualEPS;
+    }, 1000)
   },
 });
 </script>

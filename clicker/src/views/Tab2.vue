@@ -20,5 +20,8 @@ export default {
       console.log(store.state.buildings["b2"]);
     },
   },
+  mounted() {
+    store.state.pageName = "Game";
+  }
 };
 </script>

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import { isProxy, proxyRefs } from "@vue/reactivity";
 
 export interface State {
   userList: any;
@@ -9,6 +10,7 @@ export interface State {
   username: string;
   isLogged: boolean;
   actualMoney: number;
+  actualEPS: number;
   token: string;
   buildings: object;
   pageName: string;
@@ -23,9 +25,10 @@ export const store = createStore<State>({
     username: "",
     isLogged: false,
     actualMoney: 0,
+    actualEPS: 0,
     token: "",
     buildings: {},
-    pageName: "",
+    pageName: "Login",
   },
   actions: {
     getRankings() {
@@ -60,6 +63,6 @@ export const store = createStore<State>({
         .catch((error) => {
           console.log("error", error.response);
         });
-    },
+    }
   }
 });
