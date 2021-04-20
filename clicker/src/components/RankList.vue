@@ -21,11 +21,11 @@
           <div class="d-flex">
             <div
               style="height: 40px; width: 40px;"
-              class="txt-center airforce dark-4 font-s3 font-w600 rounded-full pt-2 ml-2 my-auto mr-4"
+              class="txt-center airforce dark-4 font-s3 font-w600 rounded-full pt-2 ml-2 my-auto d-table"
             >
-              {{ index }}
+              {{ index + 1 }}
             </div>
-            <p>
+            <p class="ml-4">
               <span class="font-w600 txt-airforce txt-dark-3">{{ user.name }}</span> <br />
               <span class="txt-grey txt-light-1">{{ user.actual_money }}$</span>
             </p>
