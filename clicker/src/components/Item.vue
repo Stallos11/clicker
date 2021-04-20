@@ -12,6 +12,7 @@
     </ul> -->
     <div class="p-3 airforce dark-3 mb-3 mx-3 rounded-2 light-shadow-2 d-flex">
       <div>
+        <img :src="'assets/img/' + name.toLowerCase() + '.png'">
         <div>
           {{ name }}
           <em class="txt-right font-s1 pr-1 pt-1">x{{ buildsCount }}</em>
@@ -72,4 +73,3 @@ export default {
   }
 }
 </script>
-
