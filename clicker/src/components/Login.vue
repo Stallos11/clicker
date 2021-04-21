@@ -58,7 +58,7 @@ export default {
           if (data.user) {
             store.state.isLogged = true;
             store.state.userID = data.user.id;
-            store.state.actualMoney = data.user.actual_money;
+            store.state.actualMoney = data.user.actualMoney;
             store.state.username = data.user.name;
             store.state.buildings = JSON.parse(data.user.buildings);
 

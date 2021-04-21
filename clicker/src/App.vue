@@ -54,7 +54,7 @@ export default defineComponent({
       // localStorage.setItem('actualMoney', store.state.actualMoney.toString());
       // localStorage.setItem('token', store.state.token);
       // localStorage.setItem('buildings', JSON.stringify(store.state.buildings));
-
+      console.log(store.state)
       if (store.state.isLogged) {
         Storage.set({
           key: "user",

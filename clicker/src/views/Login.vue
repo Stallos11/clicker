@@ -12,6 +12,9 @@
 import { IonPage, IonContent } from '@ionic/vue';
 import Login from '../components/Login.vue';
 import axios from "axios";
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
 
 export default  {
   name: 'FormLogin',
@@ -22,7 +25,7 @@ export default  {
   },
   methods: {
     updateUserData() {
-      axios.put('https://clicker.vincent-dimarco.fr/api/update', {
+      axios.put('https://clicker.vincent-dimarco.fr/api/updateUser', {
         id: localStorage.getItem('id'),
         actualMoney: parseInt(localStorage.getItem('actualMoney')),
         buildings: localStorage.getItem('buildings'),
@@ -34,7 +37,8 @@ export default  {
         }
       })
       .then(response => { 
-          console.log(response)
+        console.log(response);
+        localStorage.setItem('id', "-1");
       })
       .catch(error => {
           console.log(error.response)
@@ -42,12 +46,20 @@ export default  {
     }
   },
   mounted() {
-    console.log("getItem ID", localStorage.getItem('id'));
-    console.log("getItem money", localStorage.getItem('actualMoney'));
+    // console.log("getItem ID", localStorage.getItem('id'));
+    // console.log("getItem money", localStorage.getItem('actualMoney'));
+    // console.log(Storage.get(""))
+
+    Storage.get({ key: 'user' }).then((res) => {
+      const test = res.value;
+      console.log("PGM", JSON.parse(test));
+    });
+    console.log("PGM 2 : ", window.localStorage.getItem('_cap_user'));
+
+    console.log("PGM 2 : ", JSON.parse(window.localStorage.getItem('_cap_user')));
     
     if (localStorage.getItem('id') != "-1") {
       this.updateUserData();
-      localStorage.setItem('id', "-1");
     }
   },
   components: { IonContent, IonPage, Login},
