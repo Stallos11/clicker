@@ -5,11 +5,11 @@
         <ion-title>
           {{ pageName }}
         </ion-title>
-         <ion-buttons slot="end">
-            <ion-button >
-                <ion-icon name="star"></ion-icon>
-                <span v-if="actualMoney" class="font-s2 font-w600 white rounded-2 light-shadow-1 p-2">{{ actualMoney }}$</span>
-            </ion-button>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon name="star"></ion-icon>
+            <span v-if="actualMoney" class="font-s2 font-w600 white rounded-2 light-shadow-1 p-2">{{ actualMoney }}$</span>
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -21,8 +21,9 @@
 import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader } from "@ionic/vue";
 import { store } from "./store";
 import { defineComponent } from "vue";
+import { Plugins } from "@capacitor/core";
 
-//import Axentix from 'axentix';
+const { Storage } = Plugins;
 
 export default defineComponent({
   name: "App",
@@ -46,18 +47,27 @@ export default defineComponent({
     console.log("token=> " + store.state.token);
     setInterval(() => {
       store.state.actualMoney += store.state.actualEPS;
-    }, 1000)
+    }, 1000);
 
-    window.addEventListener('beforeunload', function() {
-      localStorage.setItem('id', store.state.userID.toString());
-      localStorage.setItem('actualMoney', store.state.actualMoney.toString());
-      localStorage.setItem('token', store.state.token);
-      localStorage.setItem('buildings', JSON.stringify(store.state.buildings));
+    window.addEventListener("beforeunload", function() {
+      // localStorage.setItem('id', store.state.userID.toString());
+      // localStorage.setItem('actualMoney', store.state.actualMoney.toString());
+      // localStorage.setItem('token', store.state.token);
+      // localStorage.setItem('buildings', JSON.stringify(store.state.buildings));
+
+      if (store.state.isLogged) {
+        Storage.set({
+          key: "user",
+          value: JSON.stringify({
+            id: store.state.userID,
+            actualMoney: store.state.actualMoney,
+            buildings: store.state.buildings,
+            isFirstConnexion: false,
+          }),
+        });
+      }
     });
   },
-  beforeUnmount() {
-    this.updateUserData();
-  }
 });
 </script>
 

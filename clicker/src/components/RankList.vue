@@ -27,7 +27,7 @@
             </div>
             <p class="ml-4">
               <span class="font-w600 txt-airforce txt-dark-3">{{ user.name }}</span> <br />
-              <span class="txt-grey txt-light-1">{{ user.actual_money }}$</span>
+              <span class="txt-grey txt-light-1">{{ user.actualMoney }}$</span>
             </p>
           </div>
           <div v-if="index !== userList.length - 1" class="divider bd-grey bd-light-2"></div>
@@ -57,11 +57,11 @@ export default {
     },
     actualMoney() {
       return store.state.actualMoney;
-    }
+    },
   },
   mounted() {
-    store.dispatch('getRankings');
-    store.dispatch('getUserRanking');
+    store.dispatch("getRankings");
+    store.dispatch("getUserRanking");
   },
 };
 </script>

@@ -1,9 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="tab-content">
-        <button v-on:click="test()">Test</button>
-      </div>
+      <div class="tab-content"></div>
     </ion-content>
   </ion-page>
 </template>
@@ -15,14 +13,9 @@ import { store } from "../store";
 export default {
   name: "Tab2",
   components: { IonContent, IonPage },
-  methods: {
-    test() {
-      console.log(store.state.buildings["b2"]);
-    },
-  },
   mounted() {
-    store.dispatch('setEPS');
+    store.dispatch("setEPS");
     store.state.pageName = "Game";
-  }
+  },
 };
 </script>
