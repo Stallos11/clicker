@@ -21,9 +21,10 @@
 import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader } from "@ionic/vue";
 import { store } from "./store";
 import { defineComponent } from "vue";
-import { Plugins } from "@capacitor/core";
+import { Storage } from '@ionic/storage';
+import { Plugins, AppState } from '@capacitor/core';
 
-const { Storage } = Plugins;
+const { App } = Plugins;
 
 export default defineComponent({
   name: "App",
@@ -44,30 +45,28 @@ export default defineComponent({
     IonHeader,
   },
   mounted() {
-    console.log("token=> " + store.state.token);
-    setInterval(() => {
-      store.state.actualMoney += store.state.actualEPS;
-    }, 1000);
+    const storage = new Storage();
+    storage.create();
 
-    window.addEventListener("beforeunload", function() {
-      // localStorage.setItem('id', store.state.userID.toString());
-      // localStorage.setItem('actualMoney', store.state.actualMoney.toString());
-      // localStorage.setItem('token', store.state.token);
-      // localStorage.setItem('buildings', JSON.stringify(store.state.buildings));
-      console.log(store.state)
+    App.addListener('appStateChange', (state: AppState) => {
+      console.log(state);
       if (store.state.isLogged) {
-        Storage.set({
-          key: "user",
-          value: JSON.stringify({
+        storage.set(
+          "user", 
+          JSON.stringify({
             id: store.state.userID,
             actualMoney: store.state.actualMoney,
             buildings: store.state.buildings,
-            isFirstConnexion: false,
+            token: store.state.token
           }),
-        });
+        );
       }
     });
-  },
+    
+    setInterval(() => {
+      store.state.actualMoney += store.state.actualEPS;
+    }, 1000);
+  }
 });
 </script>
 

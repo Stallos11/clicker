@@ -12,33 +12,26 @@
 import { IonPage, IonContent } from '@ionic/vue';
 import Login from '../components/Login.vue';
 import axios from "axios";
-import { Plugins } from "@capacitor/core";
-
-const { Storage } = Plugins;
+import { Storage } from '@ionic/storage';
 
 export default  {
   name: 'FormLogin',
-  data(){
-    return {
-      
-    }
-  },
   methods: {
-    updateUserData() {
+    updateUserData(data, storage) {
       axios.put('https://clicker.vincent-dimarco.fr/api/updateUser', {
-        id: localStorage.getItem('id'),
-        actualMoney: parseInt(localStorage.getItem('actualMoney')),
-        buildings: localStorage.getItem('buildings'),
+        id: data["id"],
+        actualMoney: data["actualMoney"],
+        buildings: JSON.stringify(data["buildings"]),
       },
       {
         headers: { 
           'Content-Type': 'application/json',
-          Authorization: "Bearer " + localStorage.getItem('token'),
+          Authorization: "Bearer " + data["token"],
         }
       })
       .then(response => { 
         console.log(response);
-        localStorage.setItem('id', "-1");
+        storage.clear();
       })
       .catch(error => {
           console.log(error.response)
@@ -46,21 +39,13 @@ export default  {
     }
   },
   mounted() {
-    // console.log("getItem ID", localStorage.getItem('id'));
-    // console.log("getItem money", localStorage.getItem('actualMoney'));
-    // console.log(Storage.get(""))
+    const storage = new Storage();
+    storage.create();
 
-    Storage.get({ key: 'user' }).then((res) => {
-      const test = res.value;
-      console.log("PGM", JSON.parse(test));
+    storage.get('user').then((res) => {
+      const data = JSON.parse(res);
+      data ? this.updateUserData(data, storage) : ''; 
     });
-    console.log("PGM 2 : ", window.localStorage.getItem('_cap_user'));
-
-    console.log("PGM 2 : ", JSON.parse(window.localStorage.getItem('_cap_user')));
-    
-    if (localStorage.getItem('id') != "-1") {
-      this.updateUserData();
-    }
   },
   components: { IonContent, IonPage, Login},
 }
