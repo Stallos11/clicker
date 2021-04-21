@@ -16,7 +16,10 @@
         </div>
       </div>
 
-      <div class="white d-flex fx-col light-shadow-2 rounded-2">
+      <div class="ranklist relative-pos white d-flex fx-col light-shadow-2 rounded-2">
+        <button :disabled="canRefresh == false" @click="refreshList" class="refresh-icon gradient txt-white font-s6 light-shadow-1 rounded-full txt-center p-0">
+          <ion-icon :icon="refreshOutline"></ion-icon>
+        </button>
         <div class="mx-4" v-for="(user, index) in userList" :key="user.id">
           <div class="d-flex">
             <div
@@ -38,10 +41,21 @@
 </template>
 
 <script lang="ts">
+import { IonIcon } from "@ionic/vue";
+import { refreshOutline } from "ionicons/icons";
 import { store } from "../store";
 
 export default {
   name: "ranklist",
+  components: { IonIcon },
+  data: () => ({
+    canRefresh: true
+  }),
+  setup() {
+    return {
+      refreshOutline
+    };
+  },
   computed: {
     currentUserRanking() {
       return store.state.currentUserRanking;
@@ -59,15 +73,35 @@ export default {
       return store.state.actualMoney;
     },
   },
+  methods: {
+    refreshList() {
+      this.canRefresh = false;
+      store.dispatch("getRankings");
+      store.dispatch("getUserRanking");
+
+      setTimeout(() => {
+        this.canRefresh = true;
+      }, 10000);
+    }
+  },
   mounted() {
     store.dispatch("getRankings");
     store.dispatch("getUserRanking");
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .gradient {
   background: linear-gradient(150deg, #374b5c 0%, #20314b 33%, #0b1d2b 100%);
+}
+
+.refresh-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  transform: translate(30%, -30%);
 }
 </style>

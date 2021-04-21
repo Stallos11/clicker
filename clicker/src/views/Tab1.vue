@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="tab-content">
-        <rank-list :users="users" pageTitle="lalaalal"></rank-list>
+        <rank-list :users="users"></rank-list>
       </div>
     </ion-content>
   </ion-page>

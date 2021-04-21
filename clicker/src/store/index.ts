@@ -49,6 +49,24 @@ export const store = createStore<State>({
     },
     getUserRanking() {
       this.state.loading = true;
+      axios.put('https://clicker.vincent-dimarco.fr/api/updateUser', {
+        id: this.state.userID,
+        actualMoney: this.state.actualMoney,
+        buildings: this.state.buildings,
+      },
+      {
+        headers: { 
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + this.state.token,
+        }
+      })
+      .then(response => { 
+        console.log(response);
+      })
+      .catch(error => {
+          console.log(error.response)
+      });
+
       axios
         .get("https://clicker.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, {
           headers: {

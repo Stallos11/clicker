@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader } from "@ionic/vue";
+import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader, IonButton, IonButtons, IonIcon } from "@ionic/vue";
 import { store } from "./store";
 import { defineComponent } from "vue";
 import { Storage } from '@ionic/storage';
@@ -43,6 +43,9 @@ export default defineComponent({
     IonTitle,
     IonToolbar,
     IonHeader,
+    IonButtons,
+    IonButton,
+    IonIcon
   },
   mounted() {
     const storage = new Storage();
