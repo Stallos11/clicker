@@ -35,7 +35,6 @@ export default {
   },
   mounted() {
     Axentix.updateInputs();
-    console.log("LOGIN", store.state.pageName);
   },
   methods: {
     formLogin() {
@@ -68,7 +67,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log("error", error.response);
+          console.error("error", error.response);
         });
     },
   },

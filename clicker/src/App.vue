@@ -21,8 +21,8 @@
 import { IonApp, IonRouterOutlet, IonTitle, IonToolbar, IonHeader, IonButton, IonButtons, IonIcon } from "@ionic/vue";
 import { store } from "./store";
 import { defineComponent } from "vue";
-import { Storage } from '@ionic/storage';
-import { Plugins, AppState } from '@capacitor/core';
+import { Plugins, AppState } from "@capacitor/core";
+import axios from "axios";
 
 const { App } = Plugins;
 
@@ -45,31 +45,39 @@ export default defineComponent({
     IonHeader,
     IonButtons,
     IonButton,
-    IonIcon
+    IonIcon,
   },
   mounted() {
-    const storage = new Storage();
-    storage.create();
-
-    App.addListener('appStateChange', (state: AppState) => {
-      console.log(state);
-      if (store.state.isLogged) {
-        storage.set(
-          "user", 
-          JSON.stringify({
-            id: store.state.userID,
-            actualMoney: store.state.actualMoney,
-            buildings: store.state.buildings,
-            token: store.state.token
-          }),
-        );
+    App.addListener("appStateChange", (state: AppState) => {
+      if (store.state.isLogged && !state.isActive) {
+        axios
+          .put(
+            "https://projet.vincent-dimarco.fr/api/updateUser",
+            {
+              id: store.state.userID,
+              actualMoney: store.state.actualMoney,
+              buildings: store.state.buildings,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + store.state.token,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error.response);
+          });
       }
     });
-    
+
     setInterval(() => {
       store.state.actualMoney += store.state.actualEPS;
     }, 1000);
-  }
+  },
 });
 </script>
 
