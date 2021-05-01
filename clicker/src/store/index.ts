@@ -33,10 +33,11 @@ export const store = createStore<State>({
     getRankings() {
       this.state.loading = true;
       axios
-        .get("https://clicker.vincent-dimarco.fr/api/auth/users", {
+        .get("https://projet.vincent-dimarco.fr/api/auth/users", {
           headers: {
             Authorization: "Bearer " + this.state.token,
-        }})
+          },
+        })
         .then((response) => {
           console.log(response);
           this.state.userList = response.data;
@@ -49,29 +50,34 @@ export const store = createStore<State>({
     },
     getUserRanking() {
       this.state.loading = true;
-      axios.put('https://clicker.vincent-dimarco.fr/api/updateUser', {
-        id: this.state.userID,
-        actualMoney: this.state.actualMoney,
-        buildings: this.state.buildings,
-      },
-      {
-        headers: { 
-          'Content-Type': 'application/json',
-          Authorization: "Bearer " + this.state.token,
-        }
-      })
-      .then(response => { 
-        console.log(response);
-      })
-      .catch(error => {
-          console.log(error.response)
-      });
+      axios
+        .put(
+          "https://projet.vincent-dimarco.fr/api/updateUser",
+          {
+            id: this.state.userID,
+            actualMoney: this.state.actualMoney,
+            buildings: this.state.buildings,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + this.state.token,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
 
       axios
-        .get("https://clicker.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, {
+        .get("https://projet.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, {
           headers: {
             Authorization: "Bearer " + this.state.token,
-        }})
+          },
+        })
         .then((response) => {
           console.log(response);
           this.state.currentUserRanking = response.data;
@@ -88,13 +94,10 @@ export const store = createStore<State>({
       builds = JSON.parse(builds);
       console.log("Builds 3", builds);
 
-      this.state.actualEPS += builds["Tipi"] 
-                           + builds["Cabane"] * 10
-                           + builds["Maison"] * 100
-                           + builds["Villa"] * 1000
-                           + builds["Temple"] * 10000;
+      this.state.actualEPS +=
+        builds["Tipi"] + builds["Cabane"] * 10 + builds["Maison"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
 
       console.log("EPSSS", this.state.actualEPS);
-    }
-  }
+    },
+  },
 });

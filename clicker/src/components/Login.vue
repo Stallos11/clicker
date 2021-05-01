@@ -1,7 +1,6 @@
 <template>
-  <div class="container d-flex h100 pb-5">
-    <div class="card white shadow-1 rounded-2 my-auto w100">
-      <div class="card-header">Login</div>
+  <div class="container d-flex fx-col h100 pb-5">
+    <div class="card white shadow-1 rounded-2 mt-5 mb-4 w100">
       <div class="card-content">
         <form @submit.prevent="formLogin" method="POST" class="form-material">
           <div class="form-field">
@@ -16,6 +15,9 @@
         </form>
       </div>
     </div>
+    <p class="mx-2">
+      Don't have an accunt ?<router-link to="/register" class="txt-orange txt-dark-1 font-w600 ml-2">Register</router-link>
+    </p>
   </div>
 </template>
 
@@ -32,14 +34,14 @@ export default {
     };
   },
   mounted() {
-    console.log("Component mounted.");
     Axentix.updateInputs();
+    console.log("LOGIN", store.state.pageName);
   },
   methods: {
     formLogin() {
       axios
         .post(
-          "https://clicker.vincent-dimarco.fr/api/auth/login",
+          "https://projet.vincent-dimarco.fr/api/auth/login",
           {
             email: this.email,
             password: this.password,
