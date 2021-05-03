@@ -91,7 +91,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  filter: hue-rotate(50deg);
+  // filter: hue-rotate(50deg);
   transform: scale(1);
   animation: blink infinite 20s;
 }
@@ -106,7 +106,7 @@ export default {
   }
 
   50% {
-    transform: scale(1.1);
+    transform: scale(1.4);
   }
 
   to {
