@@ -25,6 +25,7 @@
 import axios from "axios";
 import { store } from "../store";
 import { Axentix } from "axentix";
+import moment from "moment";
 
 export default {
   data() {
@@ -54,6 +55,11 @@ export default {
         .then((response) => {
           const data = response.data;
           const token = data.access_token;
+          const updateAt = data.user.updated_at;
+          const dateTime = moment(updateAt).format("YYYY-MM-DD HH:mm:ss");
+          const diff = moment().diff(dateTime, "seconds");
+          store.state.timeDiff = diff;
+          console.log(diff);
           store.state.token = token;
 
           if (data.user) {

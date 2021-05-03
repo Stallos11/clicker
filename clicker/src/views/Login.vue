@@ -11,7 +11,7 @@
 <script lang="ts">
 import { IonPage, IonContent } from "@ionic/vue";
 import Login from "../components/Login.vue";
-import { store } from "@/store";
+import { store } from "../store";
 
 export default {
   name: "FormLogin",
