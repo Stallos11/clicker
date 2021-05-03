@@ -3,7 +3,12 @@
     <ion-content :fullscreen="true">
       <div id="page" class="tab-content h100 d-flex vcenter relative-pos">
         <div class="bg-container h100 w100 absolute-pos z-index-1"></div>
-        <img id="buildIMG" @click="earnMoney" class="build-img d-flex responsive-media z-index-1 mx-auto mx-4" :src="'assets/img/' + 'bank' + '.png'">
+        <img
+          id="buildIMG"
+          @click="earnMoney"
+          class="build-img d-flex responsive-media z-index-1 mx-auto mx-4 p-4"
+          :src="'assets/img/' + 'bank' + '.png'"
+        />
       </div>
     </ion-content>
   </ion-page>
@@ -23,45 +28,45 @@ export default {
   },
   computed: {
     moneyFromClick() {
-      return ( store.state.actualMoney / 1000 ) > 1 ?  Math.round(store.state.actualMoney / 1000 ): 1
-    }
+      return store.state.actualMoney / 1000 > 1 ? Math.round(store.state.actualMoney / 1000) : 1;
+    },
   },
   methods: {
     earnMoney() {
-      store.state.actualMoney += this.moneyFromClick; 
+      store.state.actualMoney += this.moneyFromClick;
       this.showPop();
     },
     showPop() {
-      const el = document.createElement('div');
+      const el = document.createElement("div");
       const money = nFormatter.format(this.moneyFromClick, 3).toString();
-      const img = document.querySelector('#buildIMG');
+      const img = document.querySelector("#buildIMG");
       const imgTop = img.getBoundingClientRect().top;
-      const pageWidth = document.querySelector('#page').getBoundingClientRect().width;
+      const pageWidth = document.querySelector("#page").getBoundingClientRect().width;
 
       el.className = "money-pop p-2 txt-white font-s5 absolute-pos";
       el.innerText = `+ ${money} $`;
-      
-      document.querySelector('#page').appendChild(el);
+
+      document.querySelector("#page").appendChild(el);
 
       el.style.top = imgTop - 50 + "px";
-      el.style.left =  Math.round(pageWidth / 2) + 'px';
-      el.classList.add('active');
-      img.classList.add('popping');
-      
+      el.style.left = Math.round(pageWidth / 2) + "px";
+      el.classList.add("active");
+      img.classList.add("popping");
+
       setTimeout(() => {
-        el.style.top = (imgTop - 100) + 'px';
-        el.classList.remove('active')
+        el.style.top = imgTop - 100 + "px";
+        el.classList.remove("active");
       }, 10);
 
       setTimeout(() => {
-        img.classList.remove('popping');
+        img.classList.remove("popping");
       }, 100);
 
       setTimeout(() => {
         el.remove();
       }, 750);
-    }
-  }
+    },
+  },
 };
 </script>
 
