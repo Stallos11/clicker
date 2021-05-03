@@ -14,7 +14,7 @@
             </em>
           </div>
           <em class="font-s1 mt-2 d-block">
-              Price : {{ actualPrice }}$
+              Price : {{ shownActualPrice }} $
           </em>
         </div>  
         <button :disabled="actualMoney <= actualPrice" @click="buy" class="btn press h100 txt-white font-w00 font-s5 green dark-2 ml-auto">
@@ -27,13 +27,17 @@
 
 <script lang="ts">
 import { store } from "../store";
+import { IonIcon } from "@ionic/vue";
 import { cashOutline } from "ionicons/icons";
+import nFormatter from '../shared/moneyFormatter';
 
 export default {
   name: 'Item',
-  setup: () => ({
+  setup() {
+    return {
       cashOutline
-  }),
+    }
+  },
   props: {
     nameProp: String,
     earningProp: Number,
@@ -61,6 +65,9 @@ export default {
     },
     actualMoney() {
       return store.state.actualMoney;
+    },
+    shownActualPrice() {
+      return nFormatter.format(this.actualPrice, 2)
     }
   },
   methods: {
@@ -75,16 +82,10 @@ export default {
     },
     setEPS() {
       store.state.actualEPS += this.earning;
-    }
+    },
+  },
+  components: {
+    IonIcon
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// .build-img {
-//   height: 65%;
-//   left: -5%;
-//   bottom: -10%;
-//   opacity: 0.7;
-// }
-</style>

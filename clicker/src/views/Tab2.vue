@@ -1,7 +1,9 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="tab-content"></div>
+      <div class="tab-content">
+        <p @click="earnMoney">Press to become a PGM</p>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -17,5 +19,10 @@ export default {
     store.dispatch("setEPS");
     store.state.pageName = "Game";
   },
+  methods: {
+    earnMoney() {
+      store.state.actualMoney += ( store.state.actualMoney / 1000 ) > 1 ?  Math.round(store.state.actualMoney / 1000 ): 1; 
+    }
+  }
 };
 </script>

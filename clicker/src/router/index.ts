@@ -31,6 +31,10 @@ const routes: Array<RouteRecordRaw> = [
         path: "tab3",
         component: () => import("@/views/Tab3.vue"),
       },
+      {
+        path: "/:catchAll(.*)",
+        component: () => import("@/views/Login.vue"),
+      }
     ],
   },
 ];
