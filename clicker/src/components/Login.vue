@@ -1,6 +1,6 @@
 <template>
-  <div class="container d-flex fx-col h100 pb-5">
-    <div class="card white shadow-1 rounded-2 mt-5 mb-4 w100">
+  <div class="container d-flex fx-col pb-5">
+    <div class="card white shadow-1 rounded-2 my-5 mb-4 w100">
       <div class="card-content">
         <form @submit.prevent="formLogin" method="POST" class="form-material">
           <div class="form-field">

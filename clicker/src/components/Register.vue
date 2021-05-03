@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="card white rounded-2 shadow-1 mt-5">
-      <div class="card-content pt-0">
+      <div class="card-content pt-2">
         <form @submit.prevent="formSubmit" method="POST" class="form-material">
           <div class="form-field">
             <input type="text" id="name" class="form-control rounded-1" v-model="name" />

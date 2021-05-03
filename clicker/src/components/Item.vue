@@ -17,7 +17,7 @@
               Price : {{ shownActualPrice }} $
           </em>
         </div>  
-        <button :disabled="actualMoney <= actualPrice" @click="buy" class="btn press h100 txt-white font-w00 font-s5 green dark-2 ml-auto">
+        <button :disabled="actualMoney <= actualPrice" @click="buy" class="btn press h100 txt-white font-w600 font-s5 green dark-2 ml-auto">
           <ion-icon :icon="cashOutline" />
         </button>
       </div>
