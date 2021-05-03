@@ -94,8 +94,6 @@ export const store = createStore<State>({
 
       this.state.actualEPS +=
         builds["Tepee"] + builds["Hut"] * 10 + builds["House"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
-
-      this.state.actualMoney += Math.round(this.state.actualEPS * this.state.timeDiff * 0.1);
     },
   },
 });

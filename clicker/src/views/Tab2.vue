@@ -18,6 +18,7 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import { store } from "../store";
 import nFormatter from "../shared/moneyFormatter";
+import { Axentix } from "axentix";
 
 export default {
   name: "Tab2",
@@ -25,6 +26,7 @@ export default {
   mounted() {
     store.dispatch("setEPS");
     store.state.pageName = "Game";
+    this.showToast();
   },
   computed: {
     moneyFromClick() {
@@ -66,6 +68,29 @@ export default {
         el.remove();
       }, 750);
     },
+    showToast() {
+      if (!store.state.timeDiff) {
+        return;
+      }
+
+      const toast = new Axentix.Toast("<p class='w100 m-0'>Earnings during your inactivity : <br /> <span class='font-s3 font-w600'>" + nFormatter.format(Math.round(store.state.timeDiff * store.state.actualEPS * 0.1), 2) + " $</span> </p>", {
+        classes: "orange dark-1 txt-center txt-grey txt-light-4 p-2 rounded-2 shadow-1",
+        animationDuration: 400,
+        duration: 3000,
+        position: 'right',
+        direction: 'top',
+        mobileDirection: 'bottom',
+        offset: {
+          x: '5%',
+          y: '0%',
+          mobileX: '10%',
+          mobileY: '12%'
+        }
+      });
+
+      toast.show();
+      store.state.timeDiff = 0;
+    }
   },
 };
 </script>
@@ -83,6 +108,10 @@ export default {
   &.active {
     opacity: 1;
   }
+}
+
+.toast {
+  margin-bottom: 69px !important;
 }
 
 .bg-container {
