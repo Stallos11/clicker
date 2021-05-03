@@ -16,7 +16,7 @@
       </div>
     </div>
     <p class="mx-2">
-      Don't have an accunt ?<router-link to="/register" class="txt-orange txt-dark-1 font-w600 ml-2">Register</router-link>
+      Not already registered ?<router-link to="/register" class="txt-orange txt-dark-1 font-w600 ml-2">Register</router-link>
     </p>
   </div>
 </template>

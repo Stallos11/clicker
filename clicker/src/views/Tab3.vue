@@ -25,17 +25,17 @@ export default  {
   data: () => ({
     items: [
       {
-        name: "Tipi",
+        name: "Tepee",
         earning: 1,
         basePrice: 100,
       },
       {
-        name: "Cabane",
+        name: "Hut",
         earning: 10,
         basePrice: 1_100,
       },
       {
-        name: "Maison",
+        name: "House",
         earning: 100,
         basePrice: 12_000,
       },

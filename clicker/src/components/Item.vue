@@ -1,33 +1,39 @@
 <template>
   <div id="container">
-    <div class="p-3 airforce dark-3 my-3 mx-3 rounded-2 light-shadow-2 d-flex fx-col relative-pos overflow-hidden">
-      <img class="build-img absolute-pos z-index-1" :src="'assets/img/' + name.toLowerCase() + '.png'">
-      <div class="d-flex">
-        <div>
-          <div class="relative-pos z-index-2">
-            {{ name }}
-            <em class="txt-right font-s1 pr-1 pt-1 relative-pos z-index-2">x{{ buildsCount }}</em>
+    <div class="white my-4 mx-3 rounded-2 light-shadow-2 d-flex overflow-hidden">
+      <img height="60" width="60" class="build-img my-auto responsive-media ml-2 z-index-1" :src="'assets/img/' + name.toLowerCase() + '.png'">
+      <div class="d-flex fx-row w100">
+        <div class="d-flex fx-col p-3">
+          <div>
+            <div class="relative-pos z-index-2">
+              {{ name }}
+              <em class="txt-right font-s1 pr-1 pt-1 relative-pos z-index-2">x{{ buildsCount }}</em>
+            </div>
+            <em class="font-s1 mt-2 d-block relative-pos z-index-2">
+              Earn/sec : {{ EPS }}
+            </em>
           </div>
-          <em class="font-s1 mt-2 d-block relative-pos z-index-2">
-            Earn/sec : {{ EPS }}
+          <em class="font-s1 mt-2 d-block">
+              Price : {{ actualPrice }}$
           </em>
-        </div>
-        <div class="ml-auto">
-          <button :disabled="actualMoney <= actualPrice" @click="buy" class="btn small white rounded-1 shadow-1 my-auto">buy</button>
-        </div>
+        </div>  
+        <button :disabled="actualMoney <= actualPrice" @click="buy" class="btn press h100 txt-white font-w00 font-s5 green dark-2 ml-auto">
+          <ion-icon :icon="cashOutline" />
+        </button>
       </div>
-      <em class="font-s1 mt-2 d-block txt-center">
-          Price : {{ actualPrice }}$
-      </em>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { store } from "../store";
+import { cashOutline } from "ionicons/icons";
 
 export default {
   name: 'Item',
+  setup: () => ({
+      cashOutline
+  }),
   props: {
     nameProp: String,
     earningProp: Number,
@@ -75,10 +81,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.build-img {
-  height: 65%;
-  left: -5%;
-  bottom: -10%;
-  opacity: 0.7;
-}
+// .build-img {
+//   height: 65%;
+//   left: -5%;
+//   bottom: -10%;
+//   opacity: 0.7;
+// }
 </style>

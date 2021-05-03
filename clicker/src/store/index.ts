@@ -91,7 +91,7 @@ export const store = createStore<State>({
       builds = JSON.parse(builds);
 
       this.state.actualEPS +=
-        builds["Tipi"] + builds["Cabane"] * 10 + builds["Maison"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
+        builds["Tepee"] + builds["Hut"] * 10 + builds["House"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
     },
   },
 });
