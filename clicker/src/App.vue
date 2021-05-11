@@ -24,14 +24,16 @@ import { defineComponent } from "vue";
 import { Plugins, AppState } from "@capacitor/core";
 import axios from "axios";
 import nFormatter from './shared/moneyFormatter';
+import { FCM } from '@capacitor-community/fcm';
 
-const { App } = Plugins;
+const { App, PushNotifications } = Plugins;
 
 export default defineComponent({
   name: "App",
   data() {
     return {
       title: "",
+      fcm: new FCM()
     };
   },
   computed: {
@@ -52,28 +54,27 @@ export default defineComponent({
     IonIcon,
   },
   methods: {
-    nFormatter(num: any, digits: any) {
-      const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-      const si = [
-        { value: 1, symbol: "" },
-        { value: 1E3, symbol: "k" },
-        { value: 1E6, symbol: "M" },
-        { value: 1E9, symbol: "B" },
-        { value: 1E12, symbol: "T" },
-        { value: 1E15, symbol: "aa" },
-        { value: 1E18, symbol: "bb" },
-        { value: 1E21, symbol: "cc" },
-        { value: 1E24, symbol: "dd" },
-        { value: 1E27, symbol: "ee" },
-        { value: 1E30, symbol: "ff" },
-      ];
-      let i: number;
-      for (i = si.length - 1; i > 0; i--) {
-        if (num >= si[i].value) {
-          break;
-        }
-      }
-      return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    sendToken(token: string) {
+      axios
+        .put(
+          "https://projet.vincent-dimarco.fr/api/updateUser",
+          {
+            id: store.state.userID,
+            rememberToken: token
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + store.state.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("FCM token sent", res)
+        })
+        .catch((err) => {
+          console.error("can't send fcm token", err)
+        });
     }
   },
   mounted() {
@@ -101,6 +102,35 @@ export default defineComponent({
             console.error(error.response);
           });
       }
+
+      PushNotifications.requestPermission().then(result => {
+          console.log("result " + JSON.stringify(result));
+      });
+      // Add registration error if there are.
+      PushNotifications.addListener("registrationError", (error) => {
+        console.log(`error on register ${JSON.stringify(error)}`);
+      }),
+      // Add Notification received
+      PushNotifications.addListener(
+        "pushNotificationReceived",
+        (notification) => {
+          console.log(`notification ${JSON.stringify(notification)}`);
+        }
+      ),
+      // Add Action performed
+      PushNotifications.addListener(
+        "pushNotificationActionPerformed",
+        async (notification) => {
+            alert("notification " + notification)
+          console.log("notification succeeded");
+        }
+      ),
+      // Initialize the registration with FCM Token
+      PushNotifications.register();
+      const fcmToken = this.fcm.getToken();
+      console.log("token: " + JSON.stringify(fcmToken));
+
+      this.sendToken(JSON.stringify(fcmToken));
     });
 
     setInterval(() => {

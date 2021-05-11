@@ -72,7 +72,7 @@ export default {
       if (!store.state.timeDiff) {
         return;
       }
-
+      store.state.actualMoney += store.state.timeDiff * store.state.actualEPS * 0.1;
       const toast = new Axentix.Toast("<p class='w100 m-0'>Earnings during your inactivity : <br /> <span class='font-s3 font-w600'>" + nFormatter.format(Math.round(store.state.timeDiff * store.state.actualEPS * 0.1), 2) + " $</span> </p>", {
         classes: "orange dark-1 txt-center txt-grey txt-light-4 p-2 rounded-2 shadow-1",
         animationDuration: 400,

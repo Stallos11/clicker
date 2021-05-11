@@ -10,8 +10,9 @@
           <div class="form-field">
             <input type="password" id="pwd" class="form-control rounded-1" v-model="password" />
             <label for="pwd">Password</label>
+            <span :class="password.length < 1 || password.length >= 8 ? 'txt-transparent': 'txt-red'" class="form-helper txt-center">Password must be at least 8 characters long.</span>
           </div>
-          <button type="submit" value="submit" class="btn orange dark-1 txt-white rounded-1 mt-4 light-shadow-2">Submit</button>
+          <button :disabled="password.length < 8" type="submit" value="submit" class="btn orange dark-1 txt-white rounded-1 mt-4 light-shadow-2">Submit</button>
         </form>
       </div>
     </div>

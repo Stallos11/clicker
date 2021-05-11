@@ -76,8 +76,7 @@ export default {
   methods: {
     refreshList() {
       this.canRefresh = false;
-      store.dispatch("getRankings");
-      store.dispatch("getUserRanking");
+      store.dispatch("updateRankList");
 
       setTimeout(() => {
         this.canRefresh = true;
@@ -85,8 +84,7 @@ export default {
     }
   },
   mounted() {
-    store.dispatch("getRankings");
-    store.dispatch("getUserRanking");
+    store.dispatch("updateRankList");
   }
 };
 </script>

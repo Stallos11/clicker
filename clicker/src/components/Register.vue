@@ -14,12 +14,14 @@
           <div class="form-field">
             <input type="password" id="pwd" class="form-control rounded-1" v-model="password" />
             <label for="pwd">Password</label>
+            <span :class="password.length < 1 || password.length >= 8 ? 'txt-transparent': 'txt-red'" class="form-helper txt-center">Password must be at least 8 characters long.</span>
           </div>
           <div class="form-field">
             <input type="password" id="pwd-confirm" class="form-control rounded-1" v-model="passwordConfirmation" />
             <label for="pwd-confirm">Confirm password</label>
+            <span :class="passwordConfirmation === password ? 'txt-transparent': 'txt-red'" class="form-helper txt-center">Passwords don't match.</span>
           </div>
-          <button type="submit" value="submit" class="btn orange txt-white rounded-1 mt-3">Submit</button>
+          <button :disabled="(password.length < 8 || passwordConfirmation.length < 8) || passwordConfirmation != password" type="submit" value="submit" class="btn orange txt-white rounded-1 mt-3">Submit</button>
         </form>
       </div>
     </div>
@@ -46,6 +48,10 @@ export default {
   },
   methods: {
     formSubmit() {
+      if(this.passwordConfirmation != this.password) {
+        return;
+      }
+
       axios
         .post(
           "https://projet.vincent-dimarco.fr/api/auth/register",

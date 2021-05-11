@@ -33,7 +33,6 @@ export const store = createStore<State>({
   },
   actions: {
     getRankings() {
-      this.state.loading = true;
       axios
         .get("https://projet.vincent-dimarco.fr/api/auth/users", {
           headers: {
@@ -49,7 +48,30 @@ export const store = createStore<State>({
           console.error("error", error.response);
         });
     },
-    getUserRanking() {
+    getUserRanking({dispatch}) {
+      axios
+        .get("https://projet.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, {
+          headers: {
+            Authorization: "Bearer " + this.state.token,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.state.currentUserRanking = response.data;
+          dispatch('getRankings');
+        })
+        .catch((error) => {
+          console.error("error", error.response);
+        });
+    },
+    setEPS() {
+      let builds = JSON.stringify(this.state.buildings);
+      builds = JSON.parse(builds);
+
+      this.state.actualEPS +=
+        builds["Tepee"] + builds["Hut"] * 10 + builds["House"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
+    },
+    updateRankList({dispatch}) {
       this.state.loading = true;
       axios
         .put(
@@ -68,32 +90,11 @@ export const store = createStore<State>({
         )
         .then((response) => {
           console.log(response);
+          dispatch('getUserRanking');
         })
         .catch((error) => {
           console.error(error.response);
         });
-
-      axios
-        .get("https://projet.vincent-dimarco.fr/api/auth/user/rank?id=" + store.state.userID, {
-          headers: {
-            Authorization: "Bearer " + this.state.token,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          this.state.currentUserRanking = response.data;
-          this.state.loading = false;
-        })
-        .catch((error) => {
-          console.error("error", error.response);
-        });
-    },
-    setEPS() {
-      let builds = JSON.stringify(this.state.buildings);
-      builds = JSON.parse(builds);
-
-      this.state.actualEPS +=
-        builds["Tepee"] + builds["Hut"] * 10 + builds["House"] * 100 + builds["Villa"] * 1000 + builds["Temple"] * 10000;
-    },
+    }
   },
 });
