@@ -17,16 +17,27 @@
 <script lang="ts">
 import { IonPage, IonContent } from "@ionic/vue";
 import { store } from "../store";
+import { Plugins } from "@capacitor/core";
 import nFormatter from "../shared/moneyFormatter";
 import { Axentix } from "axentix";
+import axios from "axios";
+import { FCM } from '@capacitor-community/fcm';
+
+const { PushNotifications } = Plugins;
 
 export default {
   name: "Tab2",
+  data() {
+    return {
+      fcm: new FCM()
+    }
+  },
   components: { IonContent, IonPage },
   mounted() {
     store.dispatch("setEPS");
     store.state.pageName = "Game";
     this.showToast();
+    this.sendFCMToken();
   },
   computed: {
     moneyFromClick() {
@@ -90,6 +101,59 @@ export default {
 
       toast.show();
       store.state.timeDiff = 0;
+    },
+    sendFCMToken() {
+      
+      PushNotifications.requestPermission().then(result => {
+          console.log("result " + JSON.stringify(result));
+      });
+      // Add registration error if there are.
+      PushNotifications.addListener("registrationError", (error) => {
+        console.log(`error on register ${JSON.stringify(error)}`);
+      }),
+      // Add Notification received
+      PushNotifications.addListener(
+        "pushNotificationReceived",
+        (notification) => {
+          console.log(`notification ${JSON.stringify(notification)}`);
+        }
+      ),
+      // Add Action performed
+      PushNotifications.addListener(
+        "pushNotificationActionPerformed",
+        async (notification) => {
+            alert("notification " + notification)
+          console.log("notification succeeded");
+        }
+      ),
+      // Initialize the registration with FCM Token
+      PushNotifications.register();
+      
+      this.fcm.getToken().then((res: any) => {
+        this.sendToken(res["token"]);
+      });
+    },
+    sendToken(token: string) {
+      axios
+      .put(
+        "https://projet.vincent-dimarco.fr/api/updateUser",
+        {
+          id: store.state.userID,
+          rememberToken: token
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.state.token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("FCM token sent", res)
+      })
+      .catch((err) => {
+        console.error("can't send fcm token", err)
+      });
     }
   },
 };

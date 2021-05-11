@@ -24,16 +24,14 @@ import { defineComponent } from "vue";
 import { Plugins, AppState } from "@capacitor/core";
 import axios from "axios";
 import nFormatter from './shared/moneyFormatter';
-import { FCM } from '@capacitor-community/fcm';
 
-const { App, PushNotifications } = Plugins;
+const { App } = Plugins;
 
 export default defineComponent({
   name: "App",
   data() {
     return {
       title: "",
-      fcm: new FCM()
     };
   },
   computed: {
@@ -52,30 +50,6 @@ export default defineComponent({
     IonButtons,
     IonButton,
     IonIcon,
-  },
-  methods: {
-    sendToken(token: string) {
-      axios
-        .put(
-          "https://projet.vincent-dimarco.fr/api/updateUser",
-          {
-            id: store.state.userID,
-            rememberToken: token
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + store.state.token,
-            },
-          }
-        )
-        .then((res) => {
-          console.log("FCM token sent", res)
-        })
-        .catch((err) => {
-          console.error("can't send fcm token", err)
-        });
-    }
   },
   mounted() {
     App.addListener("appStateChange", (state: AppState) => {
@@ -101,37 +75,8 @@ export default defineComponent({
           .catch((error) => {
             console.error(error.response);
           });
-      }
-
-      PushNotifications.requestPermission().then(result => {
-          console.log("result " + JSON.stringify(result));
+        }
       });
-      // Add registration error if there are.
-      PushNotifications.addListener("registrationError", (error) => {
-        console.log(`error on register ${JSON.stringify(error)}`);
-      }),
-      // Add Notification received
-      PushNotifications.addListener(
-        "pushNotificationReceived",
-        (notification) => {
-          console.log(`notification ${JSON.stringify(notification)}`);
-        }
-      ),
-      // Add Action performed
-      PushNotifications.addListener(
-        "pushNotificationActionPerformed",
-        async (notification) => {
-            alert("notification " + notification)
-          console.log("notification succeeded");
-        }
-      ),
-      // Initialize the registration with FCM Token
-      PushNotifications.register();
-      const fcmToken = this.fcm.getToken();
-      console.log("token: " + JSON.stringify(fcmToken));
-
-      this.sendToken(JSON.stringify(fcmToken));
-    });
 
     setInterval(() => {
       store.state.actualMoney += store.state.actualEPS;

@@ -60,7 +60,6 @@ export default {
           const dateTime = moment(updateAt).format("YYYY-MM-DD HH:mm:ss");
           const diff = moment().diff(dateTime, "seconds");
           store.state.timeDiff = diff;
-          console.log(diff);
           store.state.token = token;
 
           if (data.user) {
