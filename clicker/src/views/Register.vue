@@ -9,18 +9,18 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
-import Register from '../components/Register.vue';
+import { IonPage, IonContent } from "@ionic/vue";
+import Register from "../components/Register.vue";
+import { store } from "../store";
 
-
-export default  {
-  name: 'FormRegister',
-  data(){
-    return {
-      
-    }
+export default {
+  name: "FormRegister",
+  data() {
+    return {};
   },
-  components: { IonContent, IonPage, Register},
-
-}
+  beforeRouteEnter() {
+    store.state.pageName = "Register";
+  },
+  components: { IonContent, IonPage, Register },
+};
 </script>

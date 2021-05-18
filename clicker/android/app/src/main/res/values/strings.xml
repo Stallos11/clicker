@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">clicker</string>
     <string name="title_activity_main">clicker</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">vins.clicker</string>
+    <string name="custom_url_scheme">vins.clicker</string>
 </resources>

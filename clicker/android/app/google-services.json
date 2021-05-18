@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "461174302417",
+    "project_id": "clicker-74243",
+    "storage_bucket": "clicker-74243.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461174302417:android:09d519f546e569695787f0",
+        "android_client_info": {
+          "package_name": "vins.clicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461174302417-2gg15njq9ub7oss03qaqfcd9pd53289p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vins.clicker",
+            "certificate_hash": "c32d03b8331bd3403923e9269b5b8cbe55050c9d"
+          }
+        },
+        {
+          "client_id": "461174302417-qkaruik2q4aggr1qfjrs8rr7a5acumvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3v8u4iF23CuTTfKhodKfCfJCGzV-o0R0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461174302417-qkaruik2q4aggr1qfjrs8rr7a5acumvs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
