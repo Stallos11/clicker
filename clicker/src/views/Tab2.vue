@@ -122,8 +122,7 @@ export default {
       PushNotifications.addListener(
         "pushNotificationActionPerformed",
         async (notification) => {
-            alert("notification " + notification)
-          console.log("notification succeeded");
+          console.log("notification succeeded", notification);
         }
       ),
       // Initialize the registration with FCM Token
